@@ -7,8 +7,9 @@
 local utils = require "astronvim.utils"
 local is_available = utils.is_available
 
--- map Ctrl+, and Ctrl+. to prev/next buffer navigation
+-- common mapping available in all mode
 local commonMapping = {
+  -- map Ctrl+, and Ctrl+. to prev/next buffer navigation
   ["<C-.>"] = {
     function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
     desc = "Next buffer",
@@ -16,6 +17,10 @@ local commonMapping = {
   ["<C-,>"] = {
     function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
     desc = "Previous buffer",
+  },
+  ["<A-t>"] = {
+    "<cmd>TodoTelescope<cr>",
+    desc = "Todos",
   },
 }
 
@@ -31,7 +36,8 @@ local debugMapping = function()
     local debug = {
       ["\\"] = { name = "Run/Debug..." },
       ["\\d"] = { function() require("dap").continue() end, desc = "Start/Continue (F5)" },
-
+      -- FIXME: seems list_breakpoints() doesn't work properly
+      ["\\l"] = { function() require("dap").list_breakpoints() end, desc = "List Breakpoints" },
       ["\\b"] = { function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint (F9)" },
       ["\\z"] = { function() require("dap").clear_breakpoints() end, desc = "Clear Breakpoints" },
       ["\\c"] = { function() require("dap").continue() end, desc = "Start/Continue (F5)" },
@@ -101,9 +107,11 @@ return function(maps)
       end,
       desc = "Pick to close",
     },
+    ["<leader>lo"] = { function() require("aerial").toggle() end, desc = "Outline" },
     -- disable
     -- ["<leader>bl"] = false,
     ["<leader>br"] = false,
+    ["<leader>lS"] = false,
     ["|"] = false,
     ["\\"] = false,
   }
@@ -111,6 +119,10 @@ return function(maps)
   maps.n = vim.tbl_extend("force", maps.n, n, debugMapping(), homeEndMapping, commonMapping)
   maps.i = vim.tbl_extend("force", maps.i, commonMapping)
   maps.v = vim.tbl_extend("force", maps.v, homeEndMapping, commonMapping)
+
+  maps.n["<A-r>"] = { "<cmd>SnipRun<cr>", desc = "Run current line" }
+  maps.i["<A-r>"] = { "<cmd>SnipRun<cr>", desc = "Run current line" }
+  maps.v["<A-r>"] = { ":'<,'>SnipRun<cr>", desc = "Run current line" }
 
   return maps
 end
