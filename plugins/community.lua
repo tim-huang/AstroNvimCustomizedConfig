@@ -3,6 +3,8 @@ return {
   "AstroNvim/astrocommunity",
   -- example of imporing a plugin, comment out to use it or add your own
   -- available plugins can be found at https://github.com/AstroNvim/astrocommunity
+
+  -- language pack
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.html-css" },
@@ -17,6 +19,22 @@ return {
   { import = "astrocommunity.pack.cmake" },
   { import = "astrocommunity.pack.cpp" },
 
+  -- debugging
+  { import = "astrocommunity.debugging.persistent-breakpoints-nvim" },
+  { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
+
+  -- testing
+  { import = "astrocommunity.test.neotest" },
+  { import = "astrocommunity.test.nvim-coverage" },
+
+  -- motion
+  { import = "astrocommunity.motion.flash-nvim" },
+
+  -- utility
+  -- there is an issue in transparent-vim
+  -- { import = "astrocommunity.utility.transparent-nvim" },
+
+  -- colorscheme
   { import = "astrocommunity.colorscheme.catppuccin" },
   { import = "astrocommunity.colorscheme.onedarkpro-nvim" },
   { import = "astrocommunity.colorscheme.github-nvim-theme" },

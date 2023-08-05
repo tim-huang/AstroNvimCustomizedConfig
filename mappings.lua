@@ -69,6 +69,18 @@ local debugMapping = function()
         desc = "Run to line / cursor",
       },
     }
+    -- persistent breakpoints
+    if is_available "persistent-breakpoints.nvim" then
+      local pb = require "persistent-breakpoints.api"
+      debug["\\b"] = { function() pb.toggle_breakpoint() end, desc = "Toggle Breakpoint" }
+      debug["\\z"] = { function() pb.clear_all_breakpoints() end, desc = "Clear Breakpoints" }
+      debug["\\B"] = {
+        function() pb.set_conditional_breakpoint() end,
+        desc = "Conditional Breakpoint",
+      }
+    end
+
+    -- evaluation && debugui
     if is_available "nvim-dap-ui" then
       debug["\\E"] = {
         function()
@@ -116,10 +128,16 @@ return function(maps)
     ["\\"] = false,
   }
 
+  -- merge normal mode
   maps.n = vim.tbl_extend("force", maps.n, n, debugMapping(), homeEndMapping, commonMapping)
+  -- merge insert mode
   maps.i = vim.tbl_extend("force", maps.i, commonMapping)
+  -- merge visual & selection mode
   maps.v = vim.tbl_extend("force", maps.v, homeEndMapping, commonMapping)
+  -- merge operator-prepend mode
+  maps.o = vim.tbl_extend("force", maps.o, homeEndMapping)
 
+  -- map ALT+r to run snip (current line in normal & insert mode, but selected block in visual mode)
   maps.n["<A-r>"] = { "<cmd>SnipRun<cr>", desc = "Run current line" }
   maps.i["<A-r>"] = { "<cmd>SnipRun<cr>", desc = "Run current line" }
   maps.v["<A-r>"] = { ":'<,'>SnipRun<cr>", desc = "Run current line" }
