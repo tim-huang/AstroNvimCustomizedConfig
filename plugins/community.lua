@@ -27,9 +27,6 @@ return {
   { import = "astrocommunity.test.neotest" },
   { import = "astrocommunity.test.nvim-coverage" },
 
-  -- motion
-  { import = "astrocommunity.motion.flash-nvim" },
-
   -- utility
   -- there is an issue in transparent-vim
   -- { import = "astrocommunity.utility.transparent-nvim" },
