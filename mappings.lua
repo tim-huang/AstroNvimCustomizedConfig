@@ -131,7 +131,9 @@ return function(maps)
   -- merge normal mode
   maps.n = vim.tbl_extend("force", maps.n, n, debugMapping(), homeEndMapping, commonMapping)
   -- merge insert mode
-  maps.i = vim.tbl_extend("force", maps.i, commonMapping)
+  maps.i = vim.tbl_extend("force", maps.i, commonMapping, {
+    ["<C-l>"] = { function() vim.lsp.buf.signature_help() end, name = "Signature help" },
+  })
   -- merge visual & selection mode
   maps.v = vim.tbl_extend("force", maps.v, homeEndMapping, commonMapping)
   -- merge operator-prepend mode

@@ -19,6 +19,12 @@ return {
   { import = "astrocommunity.pack.cmake" },
   { import = "astrocommunity.pack.cpp" },
 
+  -- marks
+  { import = "astrocommunity.motion.marks-nvim" },
+
+  -- diagnostics
+  { import = "astrocommunity.diagnostics.trouble-nvim" },
+
   -- debugging
   { import = "astrocommunity.debugging.persistent-breakpoints-nvim" },
   { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
@@ -35,5 +41,9 @@ return {
   { import = "astrocommunity.colorscheme.catppuccin" },
   { import = "astrocommunity.colorscheme.onedarkpro-nvim" },
   { import = "astrocommunity.colorscheme.github-nvim-theme" },
+
+  -- color
+  { import = "astrocommunity.color.transparent-nvim" },
+
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
 }
