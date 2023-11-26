@@ -35,7 +35,7 @@ return {
 
   -- utility
   -- there is an issue in transparent-vim
-  -- { import = "astrocommunity.utility.transparent-nvim" },
+  { import = "astrocommunity.utility.noice-nvim" },
 
   -- colorscheme
   { import = "astrocommunity.colorscheme.catppuccin" },
@@ -43,7 +43,7 @@ return {
   { import = "astrocommunity.colorscheme.github-nvim-theme" },
 
   -- color
-  { import = "astrocommunity.color.transparent-nvim" },
+  -- { import = "astrocommunity.color.transparent-nvim" },
 
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
 }

@@ -22,6 +22,10 @@ local commonMapping = {
     "<cmd>TodoTelescope<cr>",
     desc = "Todos",
   },
+  ["<C-f>"] = {
+    function() require("telescope.builtin").current_buffer_fuzzy_find() end,
+    desc = "Find words in current buffer",
+  },
 }
 
 -- map H & L to head & tail of line
@@ -120,6 +124,22 @@ return function(maps)
       desc = "Pick to close",
     },
     ["<leader>lo"] = { function() require("aerial").toggle() end, desc = "Outline" },
+    ["+"] = { desc = "Increment", "<C-a>" },
+    ["-"] = { "<C-x>", desc = "Decrement" },
+    ["<tab>"] = {
+      function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
+      desc = "Next buffer",
+    },
+
+    -- toggle floating terminal window
+    ["<C-t>"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" },
+
+    -- resize window
+    ["<C-S-Up>"] = { function() require("smart-splits").resize_up() end, desc = "Resize split up" },
+    ["<C-S-Down>"] = { function() require("smart-splits").resize_down() end, desc = "Resize split down" },
+    ["<C-S-Left>"] = { function() require("smart-splits").resize_left() end, desc = "Resize split left" },
+    ["<C-S-Right>"] = { function() require("smart-splits").resize_right() end, desc = "Resize split right" },
+
     -- disable
     -- ["<leader>bl"] = false,
     ["<leader>br"] = false,
@@ -144,5 +164,7 @@ return function(maps)
   maps.i["<A-r>"] = { "<cmd>SnipRun<cr>", desc = "Run current line" }
   maps.v["<A-r>"] = { ":'<,'>SnipRun<cr>", desc = "Run current line" }
 
+  -- termial mode
+  maps.t["<C-t>"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" }
   return maps
 end
