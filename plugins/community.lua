@@ -19,6 +19,18 @@ return {
   { import = "astrocommunity.pack.cmake" },
   { import = "astrocommunity.pack.cpp" },
 
+  -- editing
+  { import = "astrocommunity.editing-support.refactoring-nvim" },
+  { import = "astrocommunity.editing-support.rainbow-delimiters-nvim" },
+  { import = "astrocommunity.editing-support.neogen" },
+  { import = "astrocommunity.editing-support.nvim-devdocs" },
+  { import = "astrocommunity.editing-support.mini-splitjoin" },
+  { import = "astrocommunity.editing-support.vim-move" },
+  { import = "astrocommunity.editing-support.wildfire-nvim" },
+
+  -- markdown and latex
+  { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
+
   -- marks
   { import = "astrocommunity.motion.marks-nvim" },
 

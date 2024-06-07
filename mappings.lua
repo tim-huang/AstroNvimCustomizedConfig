@@ -126,19 +126,26 @@ return function(maps)
     ["<leader>lo"] = { function() require("aerial").toggle() end, desc = "Outline" },
     ["+"] = { desc = "Increment", "<C-a>" },
     ["-"] = { "<C-x>", desc = "Decrement" },
-    ["<tab>"] = {
-      function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
-      desc = "Next buffer",
-    },
+    -- ["<tab>"] = {
+    --   function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
+    --   desc = "Next buffer",
+    -- },
 
     -- toggle floating terminal window
-    ["<C-t>"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" },
+    -- ["<C-t>"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" },
+    ["<C-t>"] = { function() vim.cmd "ToggleTerm" end, desc = "ToggleTerm" },
 
     -- resize window
     ["<C-S-Up>"] = { function() require("smart-splits").resize_up() end, desc = "Resize split up" },
     ["<C-S-Down>"] = { function() require("smart-splits").resize_down() end, desc = "Resize split down" },
     ["<C-S-Left>"] = { function() require("smart-splits").resize_left() end, desc = "Resize split left" },
     ["<C-S-Right>"] = { function() require("smart-splits").resize_right() end, desc = "Resize split right" },
+
+    -- always center current line
+    -- ["j"] = { "jzz" },
+    -- ["k"] = { "kzz" },
+
+    ["<leader>pr"] = { "<cmd>AstroReload<cr>", desc = "Reoload plugins" },
 
     -- disable
     -- ["<leader>bl"] = false,
@@ -162,9 +169,9 @@ return function(maps)
   -- map ALT+r to run snip (current line in normal & insert mode, but selected block in visual mode)
   maps.n["<A-r>"] = { "<cmd>SnipRun<cr>", desc = "Run current line" }
   maps.i["<A-r>"] = { "<cmd>SnipRun<cr>", desc = "Run current line" }
-  maps.v["<A-r>"] = { ":'<,'>SnipRun<cr>", desc = "Run current line" }
+  maps.v["<A-r>"] = { ":'<,'>SnipRun<cr>", desc = "Run selected lines" }
 
   -- termial mode
-  maps.t["<C-t>"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" }
+  maps.t["<C-t>"] = { "<cmd>ToggleTerm<cr>", desc = "ToggleTerm" }
   return maps
 end

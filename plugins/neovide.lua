@@ -1,11 +1,23 @@
 -- Configuration for neovide
 -- For further information, visit https://neovide.dev/configuration.html
 if vim.g.neovide then
-  local alpha = function() return string.format("%x", math.floor((255 * vim.g.transparency) or 0.8)) end
+  -- Font configuration, format : Primary\ Font,Fallback\ Font\ 1,Fallback\ Font\ 2:option1:option2:option3
   vim.o.guifont = "JetBrainsMono Nerd Font:h12"
+
+  -- Background color and transparency
+  local alpha = function() return string.format("%x", math.floor((255 * vim.g.neovide_transparency_point) or 0.8)) end
   vim.g.neovide_transparency = 0.0
-  vim.g.transparency = 0.8
+  vim.g.neovide_transparency_point = 0.8
   vim.g.neovide_background_color = "#0f1117" .. alpha()
+  -- Add keybinds to change transparency
+  local change_transparency = function(delta)
+    vim.g.neovide_transparency_point = vim.g.neovide_transparency_point + delta
+    vim.g.neovide_background_color = "#0f1117" .. alpha()
+  end
+  vim.keymap.set({ "n", "v", "o" }, "<D-]>", function() change_transparency(0.01) end)
+  vim.keymap.set({ "n", "v", "o" }, "<D-[>", function() change_transparency(-0.01) end)
+
+  -- Option key as meta in macOS
   vim.g.neovide_input_macos_alt_is_meta = true
 
   -- Animate switch to command line
@@ -25,6 +37,7 @@ if vim.g.neovide then
     end
   end
 
+  -- IME is enabled only in insert/command line mode
   local ime_input = vim.api.nvim_create_augroup("ime_input", { clear = true })
 
   vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
@@ -48,8 +61,9 @@ if vim.g.neovide then
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
 
   -- Toggle fullscreen
-  vim.keymap.set("", "<D-f>", function() vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen end)
-  vim.keymap.set("", "<C-D-f>", function() vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen end)
+  local toggleFullScreen = function() vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen end
+  vim.keymap.set("", "<D-f>", toggleFullScreen)
+  vim.keymap.set("", "<C-D-f>", toggleFullScreen)
 end
 
 return {}
